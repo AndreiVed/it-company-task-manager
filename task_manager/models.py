@@ -36,8 +36,8 @@ class Team(models.Model):
 
 
 class Worker(AbstractUser):
-    position = models.ForeignKey(Position, on_delete=models.CASCADE, related_name="workers")
-    team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name="workers")
+    position = models.ForeignKey(Position, null=True, blank=True, on_delete=models.CASCADE, related_name="workers")
+    team = models.ForeignKey(Team, null=True, blank=True, on_delete=models.CASCADE, related_name="workers")
 
     class Meta:
         verbose_name = "worker"
@@ -74,7 +74,8 @@ class Task(models.Model):
     name = models.CharField(max_length=68, unique=True)
     description = models.TextField()
     created_date = models.DateTimeField(auto_now=True)
-    deadline = models.DateTimeField()
+    deadline = models.DateField()
+    is_completed = models.BooleanField(default=False)
     priority = models.CharField(
         max_length=68,
         choices=PRIORITY_CHOICES,
@@ -89,8 +90,11 @@ class Task(models.Model):
     project = models.ForeignKey(
         Project,
         on_delete=models.CASCADE,
-        related_name="tasks"
+        related_name="tasks",
+        null=True,
+        blank=True,
     )
+
 
     class Meta:
         ordering = ["-deadline"]
