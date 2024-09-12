@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{#{% load crispy_form_filter %}#}
+
+{% block content %}
+  <h1>Worker list</h1>
+  {% if worker_list %}
+    <table class="table">
+      <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Team</th>
+      </tr>
+    {% for worker in worker_list %}
+      <tr>
+        <td>{{ worker.id }}</td>
+{#        <td><a href="{{ worker.get_absolute_url }}">{{ worker.username }} {% if user == worker %} (Me){% endif %}</a></td>#}
+        <td><a href="{{ worker.get_absolute_url }}">{{ worker.username }}</a></td>
+        <td>{{ worker.first_name }}</td>
+        <td>{{ worker.last_name }}</td>
+        <td>{{ worker.team }}</td>
+      </tr>
+    {% endfor %}
+
+    </table>
+    {% else %}
+      <p>There are no workers in the service.</p>
+    {% endif %}
+{% endblock %}
