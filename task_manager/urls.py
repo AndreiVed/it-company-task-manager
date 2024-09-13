@@ -18,14 +18,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from task_manager.views import index, TaskTypeListView, PositionListView, WorkerListView, TaskListView, WorkerDetailView
+from task_manager.views import index, TaskTypeListView, PositionListView, WorkerListView, TaskListView, \
+    WorkerDetailView, WorkerCreateView, WorkerDeleteView, WorkerUpdateView
 
 urlpatterns = [
     path("", index, name="index"),
     path("task_types/", TaskTypeListView.as_view(), name="task-type-list"),
     path("positions/", PositionListView.as_view(), name="position-list"),
     path("workers/", WorkerListView.as_view(), name="worker-list"),
+    path("workers/create/", WorkerCreateView.as_view(), name="worker-create"),
     path("workers/<int:pk>/", WorkerDetailView.as_view(), name="worker-detail"),
+    path("workers/<int:pk>/update", WorkerUpdateView.as_view(), name="worker-update"),
+    path("workers/<int:pk>/delete", WorkerDeleteView.as_view(), name="worker-delete"),
     path("tasks/", TaskListView.as_view(), name="task-list"),
 ]
 
