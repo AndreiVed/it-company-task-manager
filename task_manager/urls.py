@@ -19,7 +19,8 @@ from django.contrib import admin
 from django.urls import path, include
 
 from task_manager.views import index, TaskTypeListView, PositionListView, WorkerListView, TaskListView, \
-    WorkerDetailView, WorkerCreateView, WorkerDeleteView, WorkerUpdateView
+    WorkerDetailView, WorkerCreateView, WorkerDeleteView, WorkerUpdateView, ProjectListView, ProjectCreateView, \
+    ProjectDetailView, ProjectUpdateView, ProjectDeleteView, TaskDetailView
 
 urlpatterns = [
     path("", index, name="index"),
@@ -31,6 +32,13 @@ urlpatterns = [
     path("workers/<int:pk>/update", WorkerUpdateView.as_view(), name="worker-update"),
     path("workers/<int:pk>/delete", WorkerDeleteView.as_view(), name="worker-delete"),
     path("tasks/", TaskListView.as_view(), name="task-list"),
+    path("tasks/<int:pk>/", TaskDetailView.as_view(), name="task-detail"),
+
+    path("projects/", ProjectListView.as_view(), name="project-list"),
+    path("projects/create/", ProjectCreateView.as_view(), name="project-create"),
+    path("projects/<int:pk>/", ProjectDetailView.as_view(), name="project-detail"),
+    path("projects/<int:pk>/update", ProjectUpdateView.as_view(), name="project-update"),
+    path("projects/<int:pk>/delete", ProjectDeleteView.as_view(), name="project-delete"),
 ]
 
 app_name = "task_manager"

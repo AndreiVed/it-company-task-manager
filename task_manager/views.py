@@ -7,7 +7,7 @@ from django.views import generic
 from task_manager.forms import (
     WorkerCreateForm,
     WorkerUpdateForm,
-    WorkerSearchForm,
+    WorkerSearchForm, ProjectSearchForm,
 )
 
 from task_manager.models import (
@@ -105,3 +105,72 @@ class TaskTypeListView(LoginRequiredMixin, generic.ListView):
     template_name = "task_manager/task_type_list.html"
     context_object_name = "task_type_list"
     paginate = 5
+
+
+class ProjectListView(LoginRequiredMixin, generic.ListView):
+    model = Project
+    paginate = 5
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(ProjectListView, self).get_context_data(**kwargs)
+        name = self.request.GET.get("name", )
+        context["search_form"] = ProjectSearchForm(
+            initial={"name": name}
+        )
+        return context
+
+    def get_queryset(self):
+        queryset = Project.objects.all()
+        form = ProjectSearchForm(self.request.GET)
+        if form.is_valid():
+            return queryset.filter(name__icontains=form.cleaned_data["name"])
+        return queryset
+
+
+class ProjectDetailView(LoginRequiredMixin, generic.DetailView):
+    model = Project
+    queryset = Project.objects.all()
+
+
+class ProjectCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Project
+    fields = "__all__"
+    success_url = reverse_lazy("task_manager:project-list")
+
+
+class ProjectUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Project
+    fields = "__all__"
+    success_url = reverse_lazy("task_manager:project-list")
+
+
+class ProjectDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Project
+    success_url = reverse_lazy("task_manager:project-list")
+
+
+class TeamListView(LoginRequiredMixin, generic.ListView):
+    model = Team
+    paginate = 5
+
+
+class TeamDetailView(LoginRequiredMixin, generic.DetailView):
+    model = Team
+    queryset = Project.objects.all()
+
+
+class TeamCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Team
+    fields = "__all__"
+    success_url = reverse_lazy("task_manager:team-list")
+
+
+class TeamUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Team
+    fields = "__all__"
+    success_url = reverse_lazy("task_manager:team-list")
+
+
+class TeamDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Team
+    success_url = reverse_lazy("task_manager:team-list")

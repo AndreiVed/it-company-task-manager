@@ -2,32 +2,46 @@
 
 {% block content %}
   <h1>
-    Username: {{ worker.username }}
-    <a href="{% url 'task_manager:worker-delete' pk=worker.id %}" class="btn btn-danger link-to-page">
+    {{ project.name }}
+    <a href="{% url 'task_manager:project-delete' pk=project.id %}" class="btn btn-danger link-to-page">
       Delete
     </a>
-
-    <a href="{% url 'task_manager:worker-update' pk=worker.id %}" class="btn btn-secondary link-to-page">
+    <a href="{% url 'task_manager:project-update' pk=project.id %}" class="btn btn-secondary link-to-page">
       Update
     </a>
   </h1>
 
-  <p><strong>First name:</strong> {{ worker.first_name }}</p>
-  <p><strong>Last name:</strong> {{ worker.last_name }}</p>
-  <p><strong>Email:</strong> {{ worker.email }}</p>
-  <p><strong>Position:</strong> {{ worker.position }}</p>
-  <p><strong>Team:</strong> {{ worker.team }}</p>
+  <p><strong>List of workers:</strong>    
+    {% for team in project.teams.all %}
+      <p><strong>Name:</strong> {{ team.name }}</p>
+      <ul>
+        {% for worker in team.workers.all %} 
+          <li>
+            {{ worker.position }}:
+            <a href="{{ worker.get_absolute_url }}">
+               {{ worker.first_name }} {{ worker.last_name }}
+            </a>
+          </li>
+        {% endfor %}  
+      </ul>
+
+    {% empty %}
+      <p>No teams!</p>
+    {% endfor %}
 
   <div class="ml-3">
     <h4>Tasks</h4>
 
-    {% for task in worker.task.all %}
+    {% for task in project.tasks.all %}
         <hr>
-        <p><strong>Name:</strong> {{ task.name }}</p>
-        <p><strong>Project:</strong> {{ task.project.name }}</p>
+        
+        <p><strong>Name:</strong>
+          <a href="{% url 'task_manager:task-detail' pk=task.id %}"> 
+            {{ task.name }}
+          </a>
+        </p>
+        <p><strong>Deadline:</strong> {{ task.deadline }}</p>
         <p><strong>Description:</strong> {{ task.description }}</p>
-        <p class="text-muted"><strong>Id:</strong> {{task.id}}</p>
-
     {% empty %}
       <p>No tasks!</p>
     {% endfor %}

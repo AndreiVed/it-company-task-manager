@@ -23,6 +23,9 @@ class Project(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse("task_manager:project-detail", kwargs={"pk": self.pk})
+
 
 class Team(models.Model):
     name = models.CharField(max_length=68, unique=True)
