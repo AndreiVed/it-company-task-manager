@@ -10,7 +10,7 @@
             <a href="{% url 'task_manager:team-detail' pk=team.id %}"> 
             {{ team.name }}
           </a> 
-          <p>Count of workers on current position: {{ team.workers.count }}</p>
+          <p>Count of workers in the team: {{ team.workers.count }}</p>
         </li>
       {% endfor %}
     </ul>

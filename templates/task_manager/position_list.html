@@ -2,16 +2,38 @@
 {#{% load crispy_form_filter %}#}
 
 {% block content %}
-  <h1>Position list</h1>
+  <h1>Position list
+      <a href="{% url 'task_manager:position-create' %}" class="btn btn-primary link-to-page">
+        Create
+      </a>
+  </h1>
   {% if position_list %}
-    <ul>
+    <table class="table">
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Count of workers</th>
+        <th>Update</th>
+        <th>Delete</th>
+      </tr>
       {% for position in position_list %}
-        <li>
-          <strong>Name:</strong> {{ position.name }} 
-          <p>Count of workers on current position: {{ position.workers.count }}</p>
-        </li>
+      <tr>
+          <td>{{ position.id }}</td>
+          <td>{{ position.name }}</td>
+          <td>{{ position.workers.count }}</td>
+          <td>
+              <a href="{% url 'task_manager:position-update' pk=position.id %}">
+                Update
+              </a>
+          </td>
+            <td>
+              <a style="color: red"
+                href="{% url 'task_manager:position-delete' pk=position.id %}">
+                Delete
+              </a>
+            </td>
+        </tr>
       {% endfor %}
-    </ul>
   {% else %}
     <p>There are no any Task Type yet!</p>
   {% endif %}
