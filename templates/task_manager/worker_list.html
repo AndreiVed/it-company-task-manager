@@ -20,20 +20,21 @@
         <th>Username</th>
         <th>First name</th>
         <th>Last name</th>
-
+        <th>Position</th>
         <th>Team</th>
       </tr>
-    {% for worker in worker_list %}
-      <tr>
-        <td>{{ worker.id }}</td>
-        <td><a href="{{ worker.get_absolute_url }}">{{ worker.username }} {% if user == worker %} (Me){% endif %}</a></td>
-        <td>{{ worker.first_name }}</td>
-        <td>{{ worker.last_name }}</td>
-        <td>{{ worker.team }}</td>
-      </tr>
-    {% endfor %}
+      {% for worker in worker_list %}
+        <tr>
+          <td>{{ worker.id }}</td>
+          <td><a href="{{ worker.get_absolute_url }}">{{ worker.username }} {% if user == worker %} (Me){% endif %}</a></td>
+          <td>{{ worker.first_name }}</td>
+          <td>{{ worker.last_name }}</td>
+          <td>{{ worker.position }}</td>
+          <td>{{ worker.team }}</td>
+        </tr>
+      {% endfor %}
     </table>
     {% else %}
       <p>There are no workers in the service.</p>
-    {% endif %}
+  {% endif %}
 {% endblock %}

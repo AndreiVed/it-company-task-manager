@@ -24,7 +24,6 @@
           </li>
         {% endfor %}  
       </ul>
-
     {% empty %}
       <p>No teams!</p>
     {% endfor %}
@@ -34,7 +33,6 @@
 
     {% for task in project.tasks.all %}
         <hr>
-        
         <p><strong>Name:</strong>
           <a href="{% url 'task_manager:task-detail' pk=task.id %}"> 
             {{ task.name }}

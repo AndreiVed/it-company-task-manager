@@ -156,7 +156,7 @@ class TeamListView(LoginRequiredMixin, generic.ListView):
 
 class TeamDetailView(LoginRequiredMixin, generic.DetailView):
     model = Team
-    queryset = Project.objects.all()
+    queryset = Team.objects.all()
 
 
 class TeamCreateView(LoginRequiredMixin, generic.CreateView):

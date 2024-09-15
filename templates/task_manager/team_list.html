@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Teams list</h1>
+  {% if team_list %}
+    <ul>
+      {% for team in team_list %}
+        <li>
+          <strong>Name:</strong> 
+            <a href="{% url 'task_manager:team-detail' pk=team.id %}"> 
+            {{ team.name }}
+          </a> 
+          <p>Count of workers on current position: {{ team.workers.count }}</p>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>There are no any Teams yet!</p>
+  {% endif %}
+{% endblock %}
