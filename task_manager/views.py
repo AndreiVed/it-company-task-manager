@@ -3,7 +3,7 @@ from datetime import datetime
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db import models
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic
 
@@ -147,6 +147,17 @@ class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
 class TaskDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Task
     success_url = reverse_lazy("task_manager:task-list")
+
+
+class TaskCompletedView(LoginRequiredMixin, generic.View):
+    @staticmethod
+    def post(request, pk):
+        task = Task.objects.get(pk=pk)
+
+        task.is_completed = True
+        task.save()
+
+        return redirect("task_manager:task-list")
 
 
 class PositionListView(LoginRequiredMixin, generic.ListView):

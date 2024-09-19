@@ -22,7 +22,8 @@ from task_manager.views import index, TaskTypeListView, PositionListView, Worker
     WorkerDetailView, WorkerCreateView, WorkerDeleteView, WorkerUpdateView, ProjectListView, ProjectCreateView, \
     ProjectDetailView, ProjectUpdateView, ProjectDeleteView, TaskDetailView, TeamListView, TeamCreateView, \
     TeamDetailView, TeamUpdateView, TeamDeleteView, PositionCreateView, PositionUpdateView, PositionDeleteView, \
-    TaskTypeDeleteView, TaskTypeUpdateView, TaskTypeCreateView, TaskCreateView, TaskUpdateView, TaskDeleteView
+    TaskTypeDeleteView, TaskTypeUpdateView, TaskTypeCreateView, TaskCreateView, TaskUpdateView, TaskDeleteView, \
+    TaskCompletedView
 
 urlpatterns = [
     path("", index, name="index"),
@@ -47,6 +48,7 @@ urlpatterns = [
     path("tasks/<int:pk>/", TaskDetailView.as_view(), name="task-detail"),
     path("tasks/<int:pk>/update/", TaskUpdateView.as_view(), name="task-update"),
     path("tasks/<int:pk>/delete/", TaskDeleteView.as_view(), name="task-delete"),
+    path("tasks/<int:pk>/completed/", TaskCompletedView.as_view(), name="task-completed"),
 
     path("projects/", ProjectListView.as_view(), name="project-list"),
     path("projects/create/", ProjectCreateView.as_view(), name="project-create"),

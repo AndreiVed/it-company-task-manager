@@ -21,8 +21,14 @@
           <a href="{% url 'task_manager:task-update' pk=task.id %}" class="btn btn-secondary link-to-page">
             Update
           </a>
-          <a href="{% url 'task_manager:task-detail' pk=task.id %}" class="card-link">Take to DONE</a>
-{#          <a href="#" class="card-link">Another link</a>#}
+          {% if not task.is_completed %}
+            <form method="post" action="{% url 'task_manager:task-completed' pk=task.id %}">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-success">
+                Mark as DONE
+              </button>
+            </form>
+          {% endif %}
         </div>
       </div>
   
