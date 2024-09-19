@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>
+
+  </h1>
+
+      <div class="card" style="width: 50rem;">
+        <div class="card-body">
+          <h4 class="card-title">{{ task.name }}</h4>
+          <h6 class="card-subtitle mb-2 text-muted">created at: {{ task.created_date }}</h6>
+          <h6 class="card-subtitle mb-2">deadline: {{ task.deadline }}</h6>
+          <h6 class="card-subtitle mb-2">priority: {{ task.priority }}</h6>
+          <h6 class="card-subtitle mb-2">completed: {{ task.is_completed }}</h6>
+          
+          <p class="card-text">{{ task.description }}</p>
+          <a href="{% url 'task_manager:task-delete' pk=task.id %}" class="btn btn-danger link-to-page">
+            Delete
+          </a>
+      
+          <a href="{% url 'task_manager:task-update' pk=task.id %}" class="btn btn-secondary link-to-page">
+            Update
+          </a>
+          <a href="{% url 'task_manager:task-detail' pk=task.id %}" class="card-link">Take to DONE</a>
+{#          <a href="#" class="card-link">Another link</a>#}
+        </div>
+      </div>
+  
+{% endblock %}

@@ -1,5 +1,8 @@
+from datetime import datetime
+
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db import models
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
@@ -7,7 +10,10 @@ from django.views import generic
 from task_manager.forms import (
     WorkerCreateForm,
     WorkerUpdateForm,
-    WorkerSearchForm, ProjectSearchForm,
+    WorkerSearchForm,
+    ProjectSearchForm,
+    TaskForm,
+    TaskSearchForm
 )
 
 from task_manager.models import (
@@ -88,11 +94,59 @@ class WorkerDeleteView(LoginRequiredMixin, generic.DeleteView):
 
 class TaskListView(LoginRequiredMixin, generic.ListView):
     model = Task
-    paginate_by = 5
+    queryset = Task.objects.all().select_related("task_type")
+    # paginate_by = 3
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(TaskListView, self).get_context_data(**kwargs)
+        name = self.request.GET.get("name", )
+        day_now = datetime.now().date()
+        context["search_form"] = TaskSearchForm(
+            initial={"name": name}
+        )
+        queryset = context["object_list"]
+        failed_tasks = queryset.filter(deadline__lt=day_now, is_completed=False)
+        completed_tasks = queryset.filter(is_completed=True)
+
+        in_process_tasks = queryset.exclude(
+            id__in=failed_tasks.values_list("id", flat=True)
+        ).exclude(id__in=completed_tasks.values_list("id", flat=True))
+
+        context["completed"] = completed_tasks
+        context["failed"] = failed_tasks
+        context["high_priority"] = in_process_tasks.filter(priority=Task.HIGH)
+        context["medium_priority"] = in_process_tasks.filter(priority=Task.MEDIUM)
+        context["low_priority"] = in_process_tasks.filter(priority=Task.LOW)
+        return context
+
+    def get_queryset(self):
+        queryset = Task.objects.select_related("task_type")
+        form = TaskSearchForm(self.request.GET)
+        if form.is_valid():
+            name = form.cleaned_data.get("name")
+            if name:
+                queryset = queryset.filter(name__icontains=name)
+        return queryset
 
 
-class TaskDetailView(LoginRequiredMixin, generic.ListView):
-    pass
+class TaskDetailView(LoginRequiredMixin, generic.DetailView):
+    model = Task
+
+
+class TaskCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Task
+    form_class = TaskForm
+    success_url = reverse_lazy("task_manager:task-list")
+
+
+class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Task
+    form_class = TaskForm
+
+
+class TaskDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Task
+    success_url = reverse_lazy("task_manager:task-list")
 
 
 class PositionListView(LoginRequiredMixin, generic.ListView):

@@ -1,0 +1,12 @@
+<div class="card-body border">
+  <h5 class="card-title"><a href="{{ task.get_absolute_url }}" class="card-link">{{ task.name }}</a></h5>
+  <h6 class="card-title"><a href="{{ task.project.get_absolute_url }}">{{ task.project.name }}</a></h6>
+  <h6 class="card-subtitle mb-2 text-muted">type: {{ task.task_type }}</h6>
+  <h6 class="card-subtitle mb-2 text-muted">created at: {{ task.created_date.date }}</h6>
+  <h6 class="card-subtitle mb-2">deadline: {{ task.deadline }}</h6>          
+  <p class="card-text" 
+     style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+    {{ task.description }}
+  </p>
+</div>
+<div class="card-footer border-0" ></div>

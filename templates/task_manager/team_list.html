@@ -1,7 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>Teams list</h1>
+  <h1>Teams list
+    <a href="{% url 'task_manager:team-create' %}" class="btn btn-primary link-to-page">
+      Create
+    </a>
+  </h1>
   {% if team_list %}
     <ul>
       {% for team in team_list %}

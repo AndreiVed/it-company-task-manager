@@ -45,9 +45,10 @@ class Worker(AbstractUser):
     class Meta:
         verbose_name = "worker"
         verbose_name_plural = "workers"
+        ordering = ["team", "username"]
 
     def __str__(self):
-        return f"{self.username} ({self.first_name} {self.last_name}) - position: {self.position}"
+        return f"{self.username} ({self.first_name} {self.last_name}) - position: {self.position} - team: {self.team}"
 
     def get_absolute_url(self):
         return reverse("task_manager:worker-detail", kwargs={"pk": self.pk})
@@ -98,6 +99,8 @@ class Task(models.Model):
         blank=True,
     )
 
-
     class Meta:
-        ordering = ["-deadline"]
+        ordering = ["deadline"]
+
+    def get_absolute_url(self):
+        return reverse('task_manager:task-detail', kwargs={"pk": self.pk})
