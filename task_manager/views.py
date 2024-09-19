@@ -100,23 +100,12 @@ class TaskListView(LoginRequiredMixin, generic.ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(TaskListView, self).get_context_data(**kwargs)
         name = self.request.GET.get("name", )
-        day_now = datetime.now().date()
+
         context["search_form"] = TaskSearchForm(
             initial={"name": name}
         )
         queryset = context["object_list"]
-        failed_tasks = queryset.filter(deadline__lt=day_now, is_completed=False)
-        completed_tasks = queryset.filter(is_completed=True)
-
-        in_process_tasks = queryset.exclude(
-            id__in=failed_tasks.values_list("id", flat=True)
-        ).exclude(id__in=completed_tasks.values_list("id", flat=True))
-
-        context["completed"] = completed_tasks
-        context["failed"] = failed_tasks
-        context["high_priority"] = in_process_tasks.filter(priority=Task.HIGH)
-        context["medium_priority"] = in_process_tasks.filter(priority=Task.MEDIUM)
-        context["low_priority"] = in_process_tasks.filter(priority=Task.LOW)
+        context = handle_tasks_context_sorting(queryset, context)
         return context
 
     def get_queryset(self):
@@ -233,6 +222,12 @@ class ProjectDetailView(LoginRequiredMixin, generic.DetailView):
     model = Project
     queryset = Project.objects.all()
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        queryset = self.object.tasks.all()
+        context = handle_tasks_context_sorting(queryset, context)
+        return context
+
 
 class ProjectCreateView(LoginRequiredMixin, generic.CreateView):
     model = Project
@@ -276,3 +271,20 @@ class TeamUpdateView(LoginRequiredMixin, generic.UpdateView):
 class TeamDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Team
     success_url = reverse_lazy("task_manager:team-list")
+
+
+def handle_tasks_context_sorting(queryset, context):
+    day_now = datetime.now().date()
+    failed_tasks = queryset.filter(deadline__lt=day_now, is_completed=False)
+    completed_tasks = queryset.filter(is_completed=True)
+
+    in_process_tasks = queryset.exclude(
+        id__in=failed_tasks.values_list("id", flat=True)
+    ).exclude(id__in=completed_tasks.values_list("id", flat=True))
+
+    context["completed"] = completed_tasks
+    context["failed"] = failed_tasks
+    context["high_priority"] = in_process_tasks.filter(priority=Task.HIGH)
+    context["medium_priority"] = in_process_tasks.filter(priority=Task.MEDIUM)
+    context["low_priority"] = in_process_tasks.filter(priority=Task.LOW)
+    return context

@@ -70,6 +70,7 @@ class TaskForm(forms.ModelForm):
             "is_completed",
             "task_type",
             "project",
+            "assignees",
         ]
         widgets = {
             "deadline": forms.DateInput(attrs={"type": "date"}),

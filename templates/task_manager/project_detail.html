@@ -13,8 +13,8 @@
 
   <p><strong>List of workers:</strong>    
     {% for team in project.teams.all %}
-      <p><strong>Name:</strong> {{ team.name }}</p>
       <ul>
+        <p>{{ team.name }}</p>
         {% for worker in team.workers.all %} 
           <li>
             {{ worker.position }}:
@@ -28,20 +28,6 @@
       <p>No teams!</p>
     {% endfor %}
 
-  <div class="ml-3">
-    <h4>Tasks</h4>
-
-    {% for task in project.tasks.all %}
-        <hr>
-        <p><strong>Name:</strong>
-          <a href="{% url 'task_manager:task-detail' pk=task.id %}"> 
-            {{ task.name }}
-          </a>
-        </p>
-        <p><strong>Deadline:</strong> {{ task.deadline }}</p>
-        <p><strong>Description:</strong> {{ task.description }}</p>
-    {% empty %}
-      <p>No tasks!</p>
-    {% endfor %}
-  </div>
+  <h4>Tasks</h4>
+  {% include "includes/block_tasks.html" %}
 {% endblock %}
