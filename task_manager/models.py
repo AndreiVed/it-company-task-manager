@@ -39,8 +39,20 @@ class Team(models.Model):
 
 
 class Worker(AbstractUser):
-    position = models.ForeignKey(Position, null=True, blank=True, on_delete=models.CASCADE, related_name="workers")
-    team = models.ForeignKey(Team, null=True, blank=True, on_delete=models.CASCADE, related_name="workers")
+    position = models.ForeignKey(
+        Position,
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE,
+        related_name="workers"
+    )
+    team = models.ForeignKey(
+        Team,
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE,
+        related_name="workers"
+    )
 
     class Meta:
         verbose_name = "worker"
@@ -48,7 +60,9 @@ class Worker(AbstractUser):
         ordering = ["team", "username"]
 
     def __str__(self):
-        return f"{self.username} ({self.first_name} {self.last_name}) - position: {self.position} - team: {self.team}"
+        return (f"{self.username} "
+                f"({self.first_name} {self.last_name}) "
+                f"- position: {self.position} - team: {self.team}")
 
     def get_absolute_url(self):
         return reverse("task_manager:worker-detail", kwargs={"pk": self.pk})

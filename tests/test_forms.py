@@ -3,8 +3,21 @@ from datetime import datetime, timedelta
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 
-from task_manager.forms import WorkerCreateForm, WorkerSearchForm, ProjectSearchForm, TaskSearchForm, TaskForm
-from task_manager.models import Position, Team, Worker, Project, Task, TaskType
+from task_manager.forms import (
+    WorkerCreateForm,
+    WorkerSearchForm,
+    ProjectSearchForm,
+    TaskSearchForm,
+    TaskForm,
+)
+from task_manager.models import (
+    Position,
+    Team,
+    Worker,
+    Project,
+    Task,
+    TaskType
+)
 
 
 class WorkerFormTests(TestCase):
@@ -140,7 +153,7 @@ class ProjectSearchFormTest(TestCase):
 
 class TaskSearchFormTest(TestCase):
     def setUp(self):
-        self.task_type=TaskType.objects.create(
+        self.task_type = TaskType.objects.create(
             name="QA"
         )
 

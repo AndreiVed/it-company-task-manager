@@ -77,7 +77,7 @@ class TaskTest(TestCase):
             password="test123",
         )
         self.client.force_login(self.user)
-        self.task_type=TaskType.objects.create(
+        self.task_type = TaskType.objects.create(
             name="QA"
         )
 

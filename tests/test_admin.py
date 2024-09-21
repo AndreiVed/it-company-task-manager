@@ -34,7 +34,10 @@ class AdminSiteTests(TestCase):
         self.assertContains(res, self.worker.team)
 
     def test_worker_detail_license_number_listed(self):
-        url = reverse("admin:task_manager_worker_change", args=[self.worker.id])
+        url = reverse(
+            "admin:task_manager_worker_change",
+            args=[self.worker.id]
+        )
         res = self.client.get(url)
         self.assertContains(res, self.worker.position)
         self.assertContains(res, self.worker.team)

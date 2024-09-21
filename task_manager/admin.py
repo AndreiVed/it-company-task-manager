@@ -17,18 +17,18 @@ class WorkerAdmin(UserAdmin):
         (("Additional info", {"fields": ("position", "team",)}),)
     )
     add_fieldsets = UserAdmin.add_fieldsets + (
-            (
-                "Additional info",
-                {
-                    "fields": (
-                        "first_name",
-                        "last_name",
-                        "position",
-                        "team",
-                    )
-                },
-            ),
-        )
+        (
+            "Additional info",
+            {
+                "fields": (
+                    "first_name",
+                    "last_name",
+                    "position",
+                    "team",
+                )
+            },
+        ),
+    )
 
     search_fields = ["username",]
     list_filter = UserAdmin.list_filter + ("position", "team",)
@@ -48,9 +48,15 @@ class TaskTypeAdmin(admin.ModelAdmin):
 
 @admin.register(Task)
 class TaskAdmin(admin.ModelAdmin):
-    list_display = ["name", "task_type", "description", "deadline", "is_completed",]
+    list_display = [
+        "name",
+        "task_type",
+        "description",
+        "deadline",
+        "is_completed",
+    ]
     search_fields = ["name", ]
-    list_filter = ["name","task_type", "created_date", "is_completed"]
+    list_filter = ["name", "task_type", "created_date", "is_completed"]
 
 
 @admin.register(Project)
