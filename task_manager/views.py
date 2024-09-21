@@ -95,7 +95,6 @@ class WorkerDeleteView(LoginRequiredMixin, generic.DeleteView):
 class TaskListView(LoginRequiredMixin, generic.ListView):
     model = Task
     queryset = Task.objects.all().select_related("task_type")
-    # paginate_by = 3
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(TaskListView, self).get_context_data(**kwargs)
@@ -142,10 +141,8 @@ class TaskCompletedView(LoginRequiredMixin, generic.View):
     @staticmethod
     def post(request, pk):
         task = Task.objects.get(pk=pk)
-
         task.is_completed = True
         task.save()
-
         return redirect("task_manager:task-list")
 
 
