@@ -2,7 +2,6 @@ from datetime import datetime
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db import models
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic
@@ -35,6 +34,7 @@ def index(request):
     num_tasks = Task.objects.count()
     num_projects = Project.objects.count()
     num_teams = Team.objects.count()
+    num_positions = Position.objects.count()
 
     num_visits = request.session.get("num_visits", 0)
     request.session["num_visits"] = num_visits + 1
@@ -44,6 +44,7 @@ def index(request):
         "num_tasks": num_tasks,
         "num_projects": num_projects,
         "num_teams": num_teams,
+        "num_positions": num_positions,
         "num_visits": num_visits + 1,
     }
 
