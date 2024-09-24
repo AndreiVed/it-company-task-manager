@@ -1,40 +1,73 @@
-{% extends "base.html" %}
+{% extends 'layouts/base.html' %}
 {% load crispy_forms_filters %}
-{#{% load crispy_form_filter %}#}
+
+{% block title %} About US {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block body_class %} about-us {% endblock body_class %}
 
 {% block content %}
-  <h1>
-    Worker list
-    <a href="{% url 'task_manager:worker-create' %}" class="btn btn-primary link-to-page">
-      Create
-    </a>
-  </h1>
-  <form method="get" action="" class="form-inline">
-      {{ search_form|crispy }}
-      <input class="btn btn-secondary" type="submit" value="🔍">
-  </form>
-  {% if worker_list %}
-    <table class="table">
-      <tr>
-        <th>ID</th>
-        <th>Username</th>
-        <th>First name</th>
-        <th>Last name</th>
-        <th>Position</th>
-        <th>Team</th>
-      </tr>
-      {% for worker in worker_list %}
-        <tr>
-          <td>{{ worker.id }}</td>
-          <td><a href="{{ worker.get_absolute_url }}">{{ worker.username }} {% if user == worker %} (Me){% endif %}</a></td>
-          <td>{{ worker.first_name }}</td>
-          <td>{{ worker.last_name }}</td>
-          <td>{{ worker.position }}</td>
-          <td>{{ worker.team }}</td>
-        </tr>
-      {% endfor %}
-    </table>
-    {% else %}
-      <p>There are no workers in the service.</p>
-  {% endif %}
+
+  {% include "includes/navigation.html" %}
+
+  <!-- End Navbar -->
+  <!-- -------- START HEADER 7 w/ text and video ------- -->
+  <header class="bg-gradient-dark">
+    <div class="page-header section-height-100" style="background-image: url('/static/assets/img/office-dark.jpg');">
+      <span class="mask bg-gradient-info opacity-8"></span>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-8 text-center mx-auto my-auto">
+            <h1 class="text-white">Work with an amazing people!</h1>
+            <button type="submit" class="btn bg-white text-dark">
+              <a href="{% url 'task_manager:worker-create' %}">
+                Create worker
+              </a>
+            </button>
+            <form method="get" action="" class="form-inline">
+              {{ search_form|crispy }} 
+              <input class="btn btn-white" type="submit" value="🔍">
+            </form>
+          
+            <div class="row row-cols-1 row-cols-md-2 g-2">
+              {% if worker_list %}
+                {% for worker in worker_list %}
+                  <div class="col">
+                    <div class="card">
+                      <div class="card-body">
+                        <h5 class="card-title"><a href="{{ worker.get_absolute_url }}">
+                          {{ worker.first_name }} {{ worker.last_name }} {% if user == worker %} (Me){% endif %}</a></h5>
+                        <p class="card-text">username: {{ worker.username }}</p>
+                        <p class="card-text">Position: {{ worker.position }}</p>
+                        <p class="card-text">in team: {{ worker.team }}</p>
+                      </div>
+                    </div>
+                  </div>
+                  {% endfor %}
+                {% else %}
+                  <p>There are no workers in the service.</p>
+              {% endif %}
+            </div>  
+          </div>
+        </div>
+      </div>
+      <div class="position-absolute w-100 z-index-1 bottom-0">
+        <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 40" preserveAspectRatio="none" shape-rendering="auto">
+          <defs>
+            <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+          </defs>
+          <g class="moving-waves">
+            <use xlink:href="#gentle-wave" x="48" y="-1" fill="rgba(255,255,255,0.40" />
+            <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.35)" />
+            <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.25)" />
+            <use xlink:href="#gentle-wave" x="48" y="8" fill="rgba(255,255,255,0.20)" />
+            <use xlink:href="#gentle-wave" x="48" y="13" fill="rgba(255,255,255,0.15)" />
+            <use xlink:href="#gentle-wave" x="48" y="16" fill="rgba(255,255,255,1" />
+          </g>
+        </svg>
+      </div>
+    </div>
+  </header>
 {% endblock %}
