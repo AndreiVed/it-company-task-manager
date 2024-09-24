@@ -20,7 +20,6 @@
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-lg-8 text-center mx-auto my-auto">
-{#            <h1 class="text-white">Our greate teams</h1>#}
             <button type="submit" class="btn bg-white text-dark">
               <a href="{% url 'task_manager:position-create' %}">
                 Create new position
@@ -87,43 +86,3 @@
     </div>
   </header>
 {% endblock %}
-
-{#{% extends "base.html" %}#}
-{##}
-{#{% block content %}#}
-{#  <h1>Position list#}
-{#      <a href="{% url 'task_manager:position-create' %}" class="btn btn-primary link-to-page">#}
-{#        Create#}
-{#      </a>#}
-{#  </h1>#}
-{#  {% if position_list %}#}
-{#    <table class="table table table-striped">#}
-{#      <tr>#}
-{#        <th>ID</th>#}
-{#        <th>Name</th>#}
-{#        <th>Count of workers</th>#}
-{#        <th>Update</th>#}
-{#        <th>Delete</th>#}
-{#      </tr>#}
-{#      {% for position in position_list %}#}
-{#      <tr>#}
-{#          <td>{{ position.id }}</td>#}
-{#          <td>{{ position.name }}</td>#}
-{#          <td>{{ position.workers.count }}</td>#}
-{#          <td>#}
-{#              <a href="{% url 'task_manager:position-update' pk=position.id %}">#}
-{#                Update#}
-{#              </a>#}
-{#          </td>#}
-{#            <td>#}
-{#              <a style="color: red"#}
-{#                href="{% url 'task_manager:position-delete' pk=position.id %}">#}
-{#                Delete#}
-{#              </a>#}
-{#            </td>#}
-{#        </tr>#}
-{#      {% endfor %}#}
-{#  {% else %}#}
-{#    <p>There are no any Task Type yet!</p>#}
-{#  {% endif %}#}
-{#{% endblock %}#}

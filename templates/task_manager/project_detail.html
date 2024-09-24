@@ -1,33 +1,106 @@
-{% extends "base.html" %}
+{% extends 'layouts/base.html' %}
+{% load crispy_forms_filters %}
+
+{% block title %} About US {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block body_class %} about-us {% endblock body_class %}
 
 {% block content %}
-  <h1>
-    {{ project.name }}
-    <a href="{% url 'task_manager:project-delete' pk=project.id %}" class="btn btn-danger link-to-page">
-      Delete
-    </a>
-    <a href="{% url 'task_manager:project-update' pk=project.id %}" class="btn btn-secondary link-to-page">
-      Update
-    </a>
-  </h1>
 
-  <p><strong>List of workers:</strong>    
-    {% for team in project.teams.all %}
-      <ul>
-        <p>{{ team.name }}</p>
-        {% for worker in team.workers.all %} 
-          <li>
-            {{ worker.position }}:
-            <a href="{{ worker.get_absolute_url }}">
-               {{ worker.first_name }} {{ worker.last_name }}
-            </a>
-          </li>
-        {% endfor %}  
-      </ul>
-    {% empty %}
-      <p>No teams!</p>
-    {% endfor %}
+  {% include "includes/navigation.html" %}
 
-  <h4>Tasks</h4>
-  {% include "includes/block_tasks.html" %}
+  <!-- End Navbar -->
+  <!-- -------- START HEADER 7 w/ text and video ------- -->
+  <header class="bg-gradient-dark">
+    <div class="page-header section-height-50" style="background-image: url('/static/assets/img/office-dark.jpg');">
+      <span class="mask bg-gradient-info opacity-8"></span>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-8 text-center mx-auto my-auto">
+            <h1 class="text-white">{{ project.name }}</h1>
+
+            {% if project.teams %}
+              <h5 class="text-white">TEAMS:</h5>
+              {% for team in project.teams.all %}
+                <h6 class="text-white">
+                  <a href="{% url 'task_manager:project-detail' pk=project.id %}">
+                  {{ team.name }}
+                </h6>
+              {% endfor %}
+            {% endif %}
+            <br>
+            <button type="submit" class="btn bg-white text-dark">
+              <a href="{% url 'task_manager:project-update' pk=project.id %}">
+                Update project
+              </a>
+            </button>
+            <button type="submit" class="btn bg-white text-dark">
+              <a href="{% url 'task_manager:project-delete' pk=project.id %}">
+                Delete project
+              </a>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="position-absolute w-100 z-index-1 bottom-0">
+        <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 40" preserveAspectRatio="none" shape-rendering="auto">
+          <defs>
+            <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+          </defs>
+          <g class="moving-waves">
+            <use xlink:href="#gentle-wave" x="48" y="-1" fill="rgba(255,255,255,0.40" />
+            <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.35)" />
+            <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.25)" />
+            <use xlink:href="#gentle-wave" x="48" y="8" fill="rgba(255,255,255,0.20)" />
+            <use xlink:href="#gentle-wave" x="48" y="13" fill="rgba(255,255,255,0.15)" />
+            <use xlink:href="#gentle-wave" x="48" y="16" fill="rgba(255,255,255,1" />
+          </g>
+        </svg>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    {% include "includes/block_tasks.html" %}
+    <br>
+  </div>
 {% endblock %}
+
+
+
+{#{% extends "base.html" %}#}
+{##}
+{#{% block content %}#}
+{#  <h1>#}
+{#    {{ project.name }}#}
+{#    <a href="{% url 'task_manager:project-delete' pk=project.id %}" class="btn btn-danger link-to-page">#}
+{#      Delete#}
+{#    </a>#}
+{#    <a href="{% url 'task_manager:project-update' pk=project.id %}" class="btn btn-secondary link-to-page">#}
+{#      Update#}
+{#    </a>#}
+{#  </h1>#}
+{##}
+{#  <p><strong>List of workers:</strong>    #}
+{#    {% for team in project.teams.all %}#}
+{#      <ul>#}
+{#        <p>{{ team.name }}</p>#}
+{#        {% for worker in team.workers.all %} #}
+{#          <li>#}
+{#            {{ worker.position }}:#}
+{#            <a href="{{ worker.get_absolute_url }}">#}
+{#               {{ worker.first_name }} {{ worker.last_name }}#}
+{#            </a>#}
+{#          </li>#}
+{#        {% endfor %}  #}
+{#      </ul>#}
+{#    {% empty %}#}
+{#      <p>No teams!</p>#}
+{#    {% endfor %}#}
+{##}
+{#  <h4>Tasks</h4>#}
+{#  {% include "includes/block_tasks.html" %}#}
+{#{% endblock %}#}

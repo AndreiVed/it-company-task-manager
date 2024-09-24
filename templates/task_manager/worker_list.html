@@ -15,7 +15,7 @@
   <!-- End Navbar -->
   <!-- -------- START HEADER 7 w/ text and video ------- -->
   <header class="bg-gradient-dark">
-    <div class="page-header section-height-100" style="background-image: url('/static/assets/img/office-dark.jpg');">
+    <div class="page-header section-height-50" style="background-image: url('/static/assets/img/office-dark.jpg');">
       <span class="mask bg-gradient-info opacity-8"></span>
       <div class="container">
         <div class="row justify-content-center">
@@ -30,26 +30,7 @@
               {{ search_form|crispy }} 
               <input class="btn btn-white" type="submit" value="🔍">
             </form>
-          
-            <div class="row row-cols-1 row-cols-md-2 g-2">
-              {% if worker_list %}
-                {% for worker in worker_list %}
-                  <div class="col">
-                    <div class="card">
-                      <div class="card-body">
-                        <h5 class="card-title"><a href="{{ worker.get_absolute_url }}">
-                          {{ worker.first_name }} {{ worker.last_name }} {% if user == worker %} (Me){% endif %}</a></h5>
-                        <p class="card-text">username: {{ worker.username }}</p>
-                        <p class="card-text">Position: {{ worker.position }}</p>
-                        <p class="card-text">in team: {{ worker.team }}</p>
-                      </div>
-                    </div>
-                  </div>
-                  {% endfor %}
-                {% else %}
-                  <p>There are no workers in the service.</p>
-              {% endif %}
-            </div>  
+            
           </div>
         </div>
       </div>
@@ -70,4 +51,28 @@
       </div>
     </div>
   </header>
+  
+  <div class="container">
+    <div class="row row-cols-1 row-cols-md-2 g-2">
+      {% if worker_list %}
+        {% for worker in worker_list %}
+          <div class="col">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title"><a href="{{ worker.get_absolute_url }}">
+                  {{ worker.first_name }} {{ worker.last_name }} {% if user == worker %} (Me){% endif %}</a></h5>
+                <p class="card-text">username: {{ worker.username }}</p>
+                <p class="card-text">Position: {{ worker.position }}</p>
+                <p class="card-text">in team: {{ worker.team }}</p>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        {% else %}
+          <p>There are no workers in the service.</p>
+      {% endif %}
+    </div>
+    <br>
+  </div>  
+  
 {% endblock %}

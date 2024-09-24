@@ -1,45 +1,87 @@
-{% extends "base.html" %}
+{% extends 'layouts/base.html' %}
+{% load crispy_forms_filters %}
+
+{% block title %} About US {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block body_class %} about-us {% endblock body_class %}
 
 {% block content %}
-  <h1>
-    {{ team.name }}
-    <a href="{% url 'task_manager:team-delete' pk=team.id %}" class="btn btn-danger link-to-page">
-      Delete
-    </a>
-    <a href="{% url 'task_manager:team-update' pk=team.id %}" class="btn btn-secondary link-to-page">
-      Update
-    </a>
-  </h1>
-  <p><strong>Projects:</strong>
-    {% if team.projects %}
-      {% for project in team.projects.all %}
-        <ul>
-          <li>{{ project.name }}</li>
-        </ul>
-      {% endfor %}
-    {% endif %}
 
-  <p><strong>List of workers:</strong>    
-{% if team.workers %}
-    <table class="table">
-      <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Position</th>
-        <th>Email</th>
-      </tr>
-      {% for worker in team.workers.all %}
-        <tr>
-          <td>{{ worker.id }}</td>
-          <td><a href="{{ worker.get_absolute_url }}">
-            {{ worker.first_name }} {{ worker.last_name }}
-          </a></td>
-          <td>{{ worker.position }}</td>
-          <td>{{ worker.email }}</td>
-        </tr>
-      {% endfor %}
-    </table>
-    {% else %}
-      <p>There are no workers in the service.</p>
-  {% endif %}
+  {% include "includes/navigation.html" %}
+
+  <!-- End Navbar -->
+  <!-- -------- START HEADER 7 w/ text and video ------- -->
+  <header class="bg-gradient-dark">
+    <div class="page-header section-height-50" style="background-image: url('/static/assets/img/office-dark.jpg');">
+      <span class="mask bg-gradient-info opacity-8"></span>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-8 text-center mx-auto my-auto">
+            <h1 class="text-white">{{ team.name }}</h1>
+
+            {% if team.projects %}
+              <h5 class="text-white">PROJECTS:</h5>
+              {% for project in team.projects.all %}
+                <h6 class="text-white">
+                  <a href="{% url 'task_manager:project-detail' pk=project.id %}">
+                  {{ project.name }}
+                </h6>
+              {% endfor %}
+            {% endif %}
+            <br>
+            <button type="submit" class="btn bg-white text-dark">
+              <a href="{% url 'task_manager:team-update' pk=team.id %}">
+                Update team
+              </a>
+            </button>
+            <button type="submit" class="btn bg-white text-dark">
+              <a href="{% url 'task_manager:team-delete' pk=team.id %}">
+                Delete team
+              </a>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="position-absolute w-100 z-index-1 bottom-0">
+        <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 40" preserveAspectRatio="none" shape-rendering="auto">
+          <defs>
+            <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+          </defs>
+          <g class="moving-waves">
+            <use xlink:href="#gentle-wave" x="48" y="-1" fill="rgba(255,255,255,0.40" />
+            <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.35)" />
+            <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.25)" />
+            <use xlink:href="#gentle-wave" x="48" y="8" fill="rgba(255,255,255,0.20)" />
+            <use xlink:href="#gentle-wave" x="48" y="13" fill="rgba(255,255,255,0.15)" />
+            <use xlink:href="#gentle-wave" x="48" y="16" fill="rgba(255,255,255,1" />
+          </g>
+        </svg>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="row row-cols-1 row-cols-md-2 g-2">
+      {% if team.workers %}
+        {% for worker in team.workers.all %}
+          <div class="col">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title"><a href="{{ worker.get_absolute_url }}">
+                  {{ worker.first_name }} {{ worker.last_name }} {% if user == worker %} (Me){% endif %}</a></h5>
+                <p class="card-text">username: {{ worker.username }}</p>
+                <p class="card-text">Position: {{ worker.position }}</p>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        {% else %}
+          <p>There are nobody in this team yet</p>
+      {% endif %}
+    </div>
+    <br>
+  </div>
 {% endblock %}
