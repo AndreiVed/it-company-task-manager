@@ -68,39 +68,3 @@
     <br>
   </div>
 {% endblock %}
-
-
-
-{#{% extends "base.html" %}#}
-{##}
-{#{% block content %}#}
-{#  <h1>#}
-{#    {{ project.name }}#}
-{#    <a href="{% url 'task_manager:project-delete' pk=project.id %}" class="btn btn-danger link-to-page">#}
-{#      Delete#}
-{#    </a>#}
-{#    <a href="{% url 'task_manager:project-update' pk=project.id %}" class="btn btn-secondary link-to-page">#}
-{#      Update#}
-{#    </a>#}
-{#  </h1>#}
-{##}
-{#  <p><strong>List of workers:</strong>    #}
-{#    {% for team in project.teams.all %}#}
-{#      <ul>#}
-{#        <p>{{ team.name }}</p>#}
-{#        {% for worker in team.workers.all %} #}
-{#          <li>#}
-{#            {{ worker.position }}:#}
-{#            <a href="{{ worker.get_absolute_url }}">#}
-{#               {{ worker.first_name }} {{ worker.last_name }}#}
-{#            </a>#}
-{#          </li>#}
-{#        {% endfor %}  #}
-{#      </ul>#}
-{#    {% empty %}#}
-{#      <p>No teams!</p>#}
-{#    {% endfor %}#}
-{##}
-{#  <h4>Tasks</h4>#}
-{#  {% include "includes/block_tasks.html" %}#}
-{#{% endblock %}#}
