@@ -1,4 +1,3 @@
-{#{% extends "base.html" %}#}
 {% extends 'layouts/base-presentation.html' %}
 
 {% block title %} Presentation {% endblock title %}
@@ -21,12 +20,8 @@
             <br>
             <p class="lead text-white mt-3">
               Welcome to your Task Manager, {{ user.first_name }} {{ user.last_name }}! 
-{#              - See <a class="text-white" href="/presentation.html">Presentation</a>. #}
               <br> 
               You have visited this page {{ num_visits }} time{{ num_visits|pluralize }}.
-{#              <a class="text-white" target="_blank" href="https://bit.ly/3fKQZaL" target="_blank">Creative Tim</a> #}
-{#              - Coded by <a class="text-white" target="_blank" href="https://appseed.us" target="_blank">AppSeed</a>.#}
-{#            </p>#}
           </div>
         </div>
       </div>

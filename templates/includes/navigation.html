@@ -71,11 +71,8 @@
                       <a href="{{ user.get_absolute_url }}" class="dropdown-item border-radius-md">
                         User profile
                       </a>
-                      <a href="{% url 'logout' %}" class="dropdown-item border-radius-md">
-                        Logout
-                      </a>
                     </div>
-                  
+
                   <li class="nav-item dropdown dropdown-hover mx-2">
                   <a class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" id="dropdownMenuPages" data-bs-toggle="dropdown" aria-expanded="false">
                     Employees
@@ -133,7 +130,7 @@
                         All positions
                       </a>
                     </div>
-                  
+
                   <li class="nav-item dropdown dropdown-hover mx-2">
                   <a class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" id="dropdownMenuPages" data-bs-toggle="dropdown" aria-expanded="false">
                     Tasks
@@ -191,19 +188,24 @@
                         All task types
                       </a>
                     </div>
-                <li class="nav-item ms-lg-auto">
-                  <a class="nav-link nav-link-icon me-2" href="https://github.com/AndreiVed/it-company-task-manager" target="_blank">
-                    <i class="fa fa-github me-1"></i>
-                    <p class="d-inline text-sm z-index-1 font-weight-bold" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Star us on Github">Github</p>
-                  </a>
-                </li>
-                <li class="nav-item ms-lg-auto">
-                  <li class="nav-link nav-link-icon me-2">User: <a href="{{ user.get_absolute_url }}">{{ user.get_username }}</a>
-                </li>
-                <li class="nav-item my-auto ms-3 ms-lg-0">
-                  <a href="{% url 'logout' %}"
-                     class="btn btn-sm  bg-gradient-primary  btn-round mb-0 me-1 mt-2 mt-md-0">Logout</a>
-                </li>
+                      <li class="nav-item ms-lg-auto">
+                        <a class="nav-link nav-link-icon me-2" href="https://github.com/AndreiVed/it-company-task-manager" target="_blank">
+                          <i class="fa fa-github me-1"></i>
+                          <p class="d-inline text-sm z-index-1 font-weight-bold" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Star us on Github">Github</p>
+                        </a>
+                      </li>
+                      <li class="nav-item ms-lg-auto">
+                        <li class="nav-link nav-link-icon me-2">User: <a href="{{ user.get_absolute_url }}">{{ user.get_username }}</a>
+                      </li>
+                      <li class="nav-item my-auto ms-3 ms-lg-0">
+                        <form action="{% url 'logout' %}" method="post">
+                          {% csrf_token %}
+                          <button class="btn btn-sm  bg-gradient-primary  btn-round mb-0 me-1 mt-2 mt-md-0" type="submit">Logout</button>
+                        </form>
+                      </li>
+                    </div>
+                  </div>
+                </div>
               </ul>
             </div>
           </div>
@@ -212,3 +214,5 @@
       </div>
     </div>
   </div>
+  
+  

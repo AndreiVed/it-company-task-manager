@@ -4,8 +4,6 @@
 <!-- Specific CSS goes HERE -->
 {% block stylesheets %}{% endblock stylesheets %}
 
-{% block body_class %} about-us {% endblock body_class %}
-
 {% block content %}
 
   {% include "includes/navigation.html" %}
@@ -36,15 +34,3 @@
       </div>
   </section>
 {% endblock %}
-
-{#{% extends "base.html" %}#}
-{#{% load crispy_forms_filters %}#}
-{##}
-{#{% block content %}#}
-{#  <h1>{{ object|yesno:"Update, Create" }} position</h1>#}
-{#  <form action="" method="post" novalidate>#}
-{#    {% csrf_token %}#}
-{#    {{ form|crispy }}#}
-{#    <input type="submit" value="Submit" class="btn btn-primary">#}
-{#  </form>#}
-{#{% endblock %}#}

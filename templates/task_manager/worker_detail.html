@@ -1,11 +1,9 @@
 {% extends 'layouts/base.html' %}
 
-{% block title %} Author {% endblock title %}
+{% block title %} Worker {% endblock title %}
 
 <!-- Specific CSS goes HERE -->
 {% block stylesheets %}{% endblock stylesheets %}
-
-{% block body_class %} blog-author bg-gray-100 {% endblock body_class %}
 
 {% block content %}
 
@@ -66,67 +64,5 @@
         </div>
       </div>
     </div>
-  </section>  
-{#  <div class="container">#}
-{#    <div class="row row-cols-1 row-cols-md-1 g-2">#}
-{#      {% if worker.tasks %}#}
-{#        {% for task in worker.tasks.all %}          #}
-{#          <div class="col">#}
-{#            <div class="card">#}
-{#              <div class="card-body">#}
-{#                <h5 class="card-title">#}
-{#                  <a href="{% url 'task_manager:task-detail' pk=task.id %}"> #}
-{#                    {{ task.name }}#}
-{#                  </a>#}
-{#                </h5>#}
-{#                <p><strong>Project:</strong> {{ task.project.name }}</p>#}
-{#                <p><strong>Description:</strong> {{ task.description }}</p>#}
-{#                <p class="text-muted"><strong>Id:</strong> {{task.id}}</p>#}
-{#              </div>#}
-{#            </div>#}
-{#          </div>#}
-{#          {% endfor %}#}
-{#        {% else %}#}
-{#          <p>There are no projects in the service.</p>#}
-{#      {% endif %}#}
-{#    </div>#}
-{#    <br>#}
-{#  </div>#}
-
+  </section>
 {% endblock %}
-
-{#{% extends "base.html" %}#}
-{##}
-{#{% block content %}#}
-{#  <h1>#}
-{#    Username: {{ worker.username }}#}
-{#    <a href="{% url 'task_manager:worker-delete' pk=worker.id %}" class="btn btn-danger link-to-page">#}
-{#      Delete#}
-{#    </a>#}
-{##}
-{#    <a href="{% url 'task_manager:worker-update' pk=worker.id %}" class="btn btn-secondary link-to-page">#}
-{#      Update#}
-{#    </a>#}
-{#  </h1>#}
-{##}
-{#  <p><strong>First name:</strong> {{ worker.first_name }}</p>#}
-{#  <p><strong>Last name:</strong> {{ worker.last_name }}</p>#}
-{#  <p><strong>Email:</strong> {{ worker.email }}</p>#}
-{#  <p><strong>Position:</strong> {{ worker.position }}</p>#}
-{#  <p><strong>Team:</strong> {{ worker.team }}</p>#}
-{##}
-{#  <div class="ml-3">#}
-{#    <h4>Tasks</h4>#}
-{##}
-{#    {% for task in worker.task.all %}#}
-{#        <hr>#}
-{#        <p><strong>Name:</strong> {{ task.name }}</p>#}
-{#        <p><strong>Project:</strong> {{ task.project.name }}</p>#}
-{#        <p><strong>Description:</strong> {{ task.description }}</p>#}
-{#        <p class="text-muted"><strong>Id:</strong> {{task.id}}</p>#}
-{##}
-{#    {% empty %}#}
-{#      <p>No tasks!</p>#}
-{#    {% endfor %}#}
-{#  </div>#}
-{#{% endblock %}#}

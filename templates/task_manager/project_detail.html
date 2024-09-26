@@ -26,7 +26,7 @@
               <h5 class="text-white">TEAMS:</h5>
               {% for team in project.teams.all %}
                 <h6 class="text-white">
-                  <a href="{% url 'task_manager:project-detail' pk=project.id %}">
+                  <a href="{% url 'task_manager:team-detail' pk=team.id %}">
                   {{ team.name }}
                 </h6>
               {% endfor %}

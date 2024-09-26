@@ -1,12 +1,8 @@
 {% extends 'layouts/base.html' %}
 {% load crispy_forms_filters %}
 
-{% block title %} About US {% endblock title %}
-
 <!-- Specific CSS goes HERE -->
 {% block stylesheets %}{% endblock stylesheets %}
-
-{% block body_class %} about-us {% endblock body_class %}
 
 {% block content %}
 
@@ -30,7 +26,6 @@
               {{ search_form|crispy }} 
               <input class="btn btn-white" type="submit" value="🔍">
             </form>
-            
           </div>
         </div>
       </div>
