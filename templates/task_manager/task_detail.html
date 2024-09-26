@@ -1,0 +1,64 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Task {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block body_class %} blog-author bg-gray-100 {% endblock body_class %}
+
+{% block content %}
+
+  {% include "includes/navigation.html" %}
+  <section class="py-sm-7 py-5 position-relative ">
+    <div class="container">
+      <div class="row">
+        <div class="col-8 mx-auto">
+          <div class="row py-lg-7 py-5">
+            <div class="card" style="width: 50rem;">
+              <div class="card-body">
+                <h4 class="card-title">{{ task.name }}</h4>
+                <h6 class="card-title"><a href="{{ task.project.get_absolute_url }}">{{ task.project.name }}</a></h6>
+                <h6 class="card-subtitle mb-2 text-muted">type: {{ task.task_type }}</h6>
+                <h6 class="card-subtitle mb-2 text-muted">created at: {{ task.created_date.date }}</h6>
+                <h6 class="card-subtitle mb-2">deadline: {{ task.deadline }}</h6>          
+                <p class="card-text">
+                  {{ task.description }}
+                </p>
+                <p><strong>Assignees:</strong></p>
+                <ul>
+                  {% for worker in task.assignees.all %} 
+                    <li>
+                      {{ worker.position }}:
+                      <a href="{{ worker.get_absolute_url }}">
+                         {{ worker.first_name }} {{ worker.last_name }}  
+                      </a> ;
+                      Team:
+                      <a href="{% url 'task_manager:team-detail' pk=worker.team.id %}">
+                        ({{ worker.team.name }})
+                      </a>
+                    </li>
+                  {% endfor %}
+                </ul>
+                {% if not task.is_completed %}
+                  <form method="post" action="{% url 'task_manager:task-completed' pk=task.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-success">
+                      Mark as DONE
+                    </button>
+                  </form>
+                {% endif %}
+                <a href="{% url 'task_manager:task-update' pk=task.id %}" class="btn btn-primary link-to-page">
+                  Update
+                </a>
+                <a href="{% url 'task_manager:task-delete' pk=task.id %}" class="btn btn-danger link-to-page">
+                  Delete
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

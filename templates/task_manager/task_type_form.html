@@ -1,0 +1,36 @@
+{% extends 'layouts/base.html' %}
+{% load crispy_forms_filters %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+  {% include "includes/navigation.html" %}
+
+  <!-- End Navbar -->
+  <!-- -------- START HEADER 7 w/ text and video ------- -->
+
+  <section class="py-lg-6">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="card overflow-hidden mb-5">
+            <div class="row">
+              <div class="col-lg-7">
+                <form role="form" class="p-3" id="contact-form" method="post" novalidate>
+                  <div class="card-header px-4 py-sm-5 py-3">
+                    <h2>{{ object|yesno:"Update, Create" }} task type</h2>
+                      {% csrf_token %}
+                      {{ form|crispy }}
+                      <input type="submit" value="Submit" class="btn btn-primary">
+                  </div>
+                </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </section>
+{% endblock %}

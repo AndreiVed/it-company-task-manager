@@ -1,0 +1,67 @@
+  <div class="card-group">
+    <div class="card">
+      <div class="card-header"
+           style="background-color:orange; text-align: center">
+        <h4>High Priority</h4>
+      </div>
+      {% if high_priority %}
+        {% for task in high_priority %}
+          {% include "includes/task_card.html" %}
+        {% endfor %}
+      {% else %}
+        <div style="text-align: center">You do not have HIGH priority tasks yet..</div>
+      {% endif %}
+    </div>
+    <div class="card">
+      <div class="card-header"
+           style="background-color:#FFD700; text-align: center">
+        <h4>Medium Priority</h4>
+      </div>
+      {% if medium_priority %}
+        {% for task in medium_priority %}
+          {% include "includes/task_card.html" %}
+        {% endfor %}
+      {% else %}
+          <div style="text-align: center">You do not have MEDIUM priority tasks yet..</div>
+      {% endif %}
+    </div>
+    <div class="card">
+      <div class="card-header"
+           style="background-color:#ADFF2F; text-align: center">
+        <h4>Low Priority</h4>
+      </div>
+      {% if low_priority %}
+        {% for task in low_priority %}
+          {% include "includes/task_card.html" %}
+        {% endfor %}
+      {% else %}
+        <div style="text-align: center">You do not have LOW priority tasks yet..</div>
+      {% endif %}
+    </div>
+    <div class="card">
+      <div class="card-header"
+           style="background-color:#9ACD32; text-align: center">
+        <h4>DONE</h4>
+      </div>
+      {% if completed %}
+        {% for task in completed %}
+          {% include "includes/task_card.html" %}
+        {% endfor %}
+      {% else %}
+        <div style="text-align: center">You do not have COMPLETED tasks yet..</div>
+      {% endif %}
+    </div>
+    <div class="card">
+      <div class="card-header" 
+           style="background-color:#FF4500; text-align: center">
+        <h4>FAILED</h4>
+      </div>
+      {% if failed %}
+        {% for task in failed %}
+          {% include "includes/task_card.html" %}
+        {% endfor %}
+      {% else %}
+        <div style="text-align: center">You do not have FAILED tasks yet..</div>
+      {% endif %}
+    </div>
+  </div>
