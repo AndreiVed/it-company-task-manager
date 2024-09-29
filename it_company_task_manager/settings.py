@@ -29,7 +29,7 @@ DEBUG = True #"RENDER" not in os.environ
 ALLOWED_HOSTS = [
     "127.0.0.1",
     "localhost",
-    "https://it-company-task-manager-dlqd.onrender.com",
+    "it-company-task-manager-dlqd.onrender.com",
 ]
 
 # Application definition
