@@ -18,6 +18,9 @@ source venv/bin/activate
 pip install -r requirements.txt
 python manage.py runserver #starts Django server
 ```
+To enter the site first time use:
+* login: user
+* password: user12345
 
 ## Features
 
