@@ -5,6 +5,7 @@ Django project for managing tasks, workers, worker`s teams and projects in IT co
 ## Check it out!
 
 [Task manager deployed to Render]("https://it-company-task-manager-dlqd.onrender.com")
+https://it-company-task-manager-dlqd.onrender.com
 
 ## installation
 
